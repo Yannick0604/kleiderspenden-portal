@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kleiderspenden-Registrierung | KleiderSpende e.v.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta
+      name="description"
+      content="Registrieren Sie sich für Kleiderspenden und helfen Sie Bedürftigen. Mit Übergabe an Geschäftsstelle oder Abholung per Sammelfahrzeug.. Einfach, schnell und sicher."
+    />
+  </head>
+  <body class="bg-gray-50 text-gray-900">
+    <header class="bg-emerald-600 shadow">
+      <div
+        class="container mx-auto px-4 py-4 flex items-center justify-between"
+      >
+        <a href="#" class="flex items-center gap-3">
+          <div
+            class="h-14 w-14 rounded-full bg-white shadow flex items-center justify-center text-emerald-600 font-bold text-2xl"
+          >
+            KS
+          </div>
+          <span class="text-2xl font-bold text-white">KleiderSpende e.V.</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6">
+          <a
+            href="#start"
+            class="px-4 py-2 rounded-lg bg-white text-emerald-700 font-semibold hover:bg-emerald-100 transition"
+            >Start</a
+          >
+          <a
+            href="#spende"
+            class="px-4 py-2 rounded-lg bg-white text-emerald-700 font-semibold hover:bg-emerald-100 transition"
+            >Spende registrieren</a
+          >
+          <a
+            href="#kontakt"
+            class="px-4 py-2 rounded-lg bg-white text-emerald-700 font-semibold hover:bg-emerald-100 transition"
+            >Kontakt</a
+          >
+          <a
+            href="#ueber"
+            class="px-4 py-2 rounded-lg bg-white text-emerald-700 font-semibold hover:bg-emerald-100 transition"
+            >Über uns</a
+          >
+        </nav>
+        <!-- Mobile Menu Button -->
+        <button
+          id="menuBtn"
+          class="md:hidden inline-flex items-center justify-center p-2 rounded-lg border hover:bg-gray-100"
+          aria-label="Menü öffnen"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
+      <!-- Mobile Nav -->
+      <div id="mobileNav" class="md:hidden hidden border-t bg-white">
+        <div class="container mx-auto px-4 py-3 flex flex-col gap-2">
+          <a href="#start" class="py-2">Start</a>
+          <a href="#spende" class="py-2">Spende registrieren</a>
+          <a href="#kontakt" class="py-2">Kontakt</a>
+          <a href="#ueber" class="py-2">Über uns</a>
+        </div>
+      </div>
+    </header>
+    <main id="start" class="container mx-auto px-4 py-12">
+      <!-- Hauptinhalt kommt hier hin -->
+      <section class="mb-8">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h1 class="text-4xl font-extrabold mb-4 text-emerald-700">
+              Kleiderspenden-Registrierung
+            </h1>
+            <p class="text-lg text-gray-700">
+              Bestimme selbst, in welche aktuelle Krisenregion deine Spende
+              geht. Übergabe direkt an der Geschäftsstelle oder Abholung durch
+              unser Sammelfahrzeug.
+            </p>
+          </div>
+          <div class="bg-white rounded-2xl shadow-lg p-6 text-emerald-900">
+            <p class="font-semibold mb-2">Hinweis:</p>
+            <ul class="list-disc pl-5 text-base">
+              <li>
+                Für <strong>Abholung</strong> muss deine PLZ mit der unserer
+                Geschäftsstelle (erste zwei Ziffern) übereinstimmen.
+              </li>
+              <li>
+                Auf dem Tablet an der Geschäftsstelle bitte
+                <strong>„Übergabe an der Geschäftsstelle“</strong> wählen.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <!-- Formular -->
+      <section id="spende" class="mb-16">
+        <div class="bg-white rounded-2xl shadow-lg p-8">
+          <h2 class="text-3xl font-bold mb-8 text-emerald-700">
+            Spende registrieren
+          </h2>
+          <!-- Auswahl Übergabe / Abholung -->
+          <fieldset class="mb-6">
+            <legend class="font-medium mb-3">Art der Übergabe</legend>
+            <div class="grid sm:grid-cols-2 gap-3">
+              <label
+                class="flex items-center gap-3 p-3 border rounded-xl cursor-pointer hover:bg-gray-50"
+              >
+                <input
+                  type="radio"
+                  name="modus"
+                  value="uebergabe"
+                  class="h-4 w-4"
+                  checked
+                />
+                <span>Übergabe an der Geschäftsstelle</span>
+              </label>
+              <label
+                class="flex items-center gap-3 p-3 border rounded-xl cursor-pointer hover:bg-gray-50"
+              >
+                <input
+                  type="radio"
+                  name="modus"
+                  value="abholung"
+                  class="h-4 w-4"
+                />
+                <span>Abholung durch Sammelfahrzeug</span>
+              </label>
+            </div>
+          </fieldset>
+          <!-- Felder: Gemeinsam -->
+          <div class="grid md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label for="kleidung" class="block text-sm font-medium mb-2"
+                >Art der Kleidung</label
+              >
+              <select
+                id="kleidung"
+                required
+                class="w-full rounded-xl border px-3 py-2"
+              >
+                <option value="">Bitte auswählen …</option>
+              </select>
+              <p id="err-kleidung" class="mt-1 text-sm text-red-600 hidden">
+                Bitte Kleidungstyp auswählen.
+              </p>
+            </div>
+            <div>
+              <label for="krise" class="block text-sm font-medium mb-2"
+                >Aktuelles Krisengebiet</label
+              >
+              <select
+                id="krise"
+                required
+                class="w-full rounded-xl border px-3 py-2"
+              >
+                <option value="">Bitte auswählen …</option>
+              </select>
+              <p id="err-krise" class="mt-1 text-sm text-red-600 hidden">
+                Bitte Krisengebiet auswählen.
+              </p>
+            </div>
+          </div>
+          <!-- Felder: Abholung (Adresse) -->
+          <div id="adresseBox" class="grid md:grid-cols-2 gap-6 mb-6 hidden">
+            <div>
+              <label for="strasse" class="block text-sm font-medium mb-2"
+                >Straße</label
+              >
+              <input
+                id="strasse"
+                type="text"
+                class="w-full rounded-xl border px-3 py-2"
+                autocomplete="address-line1"
+              />
+              <p id="err-strasse" class="mt-1 text-sm text-red-600 hidden">
+                Bitte Straße angeben.
+              </p>
+            </div>
+            <div>
+              <label for="hausnr" class="block text-sm font-medium mb-2"
+                >Hausnummer</label
+              >
+              <input
+                id="hausnr"
+                type="text"
+                class="w-full rounded-xl border px-3 py-2"
+                autocomplete="address-line2"
+              />
+              <p id="err-hausnr" class="mt-1 text-sm text-red-600 hidden">
+                Bitte Hausnummer angeben.
+              </p>
+            </div>
+            <div>
+              <label for="plz" class="block text-sm font-medium mb-2"
+                >PLZ</label
+              >
+              <input
+                id="plz"
+                type="text"
+                inputmode="numeric"
+                pattern="[0-9]{5}"
+                maxlength="5"
+                class="w-full rounded-xl border px-3 py-2"
+                autocomplete="postal-code"
+              />
+              <p id="err-plz" class="mt-1 text-sm text-red-600 hidden">
+                Bitte gültige PLZ (5 Ziffern) angeben.
+              </p>
+              <p id="err-plz-naehe" class="mt-1 text-sm text-red-600 hidden">
+                Abholadresse liegt außerhalb unseres Abholgebiets (ersten zwei
+                PLZ-Ziffern müssen mit der Geschäftsstelle übereinstimmen).
+              </p>
+            </div>
+            <div>
+              <label for="ort" class="block text-sm font-medium mb-2"
+                >Ort</label
+              >
+              <input
+                id="ort"
+                type="text"
+                class="w-full rounded-xl border px-3 py-2"
+                autocomplete="address-level2"
+              />
+              <p id="err-ort" class="mt-1 text-sm text-red-600 hidden">
+                Bitte Ort angeben.
+              </p>
+            </div>
+          </div>
+          <!-- Aktionen -->
+          <div class="flex items-center gap-3">
+            <button
+              id="submitBtn"
+              class="inline-flex items-center justify-center rounded-xl bg-emerald-600 text-white px-5 py-3 hover:bg-emerald-700"
+            >
+              Spende registrieren
+            </button>
+            <button
+              id="resetBtn"
+              type="button"
+              class="inline-flex items-center justify-center rounded-xl border px-5 py-3 hover:bg-gray-50"
+            >
+              Eingaben zurücksetzen
+            </button>
+          </div>
+        </div>
+      </section>
+      <!-- Bestätigung -->
+      <section id="bestaetigung" class="hidden">
+        <div class="bg-white rounded-2xl shadow p-6 md:p-8">
+          <h2 class="text-2xl font-semibold mb-4">
+            Registrierung erfolgreich 🎉
+          </h2>
+          <p class="mb-4">
+            Vielen Dank! Deine Kleiderspende wurde registriert. Hier sind die
+            Details:
+          </p>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="rounded-xl border p-4">
+              <p class="text-sm text-gray-500">Art der Kleidung</p>
+              <p id="out-kleidung" class="font-medium"></p>
+            </div>
+            <div class="rounded-xl border p-4">
+              <p class="text-sm text-gray-500">Krisengebiet</p>
+              <p id="out-krise" class="font-medium"></p>
+            </div>
+            <div class="rounded-xl border p-4">
+              <p class="text-sm text-gray-500">Datum & Uhrzeit</p>
+              <p id="out-datetime" class="font-medium"></p>
+            </div>
+            <div class="rounded-xl border p-4">
+              <p class="text-sm text-gray-500">Ort</p>
+              <p id="out-ort" class="font-medium"></p>
+            </div>
+          </div>
+          <div class="mt-6 flex items-center gap-3">
+            <button
+              id="newEntryBtn"
+              class="inline-flex items-center justify-center rounded-xl bg-emerald-600 text-white px-5 py-3 hover:bg-emerald-700"
+            >
+              Neue Spende registrieren
+            </button>
+            <a href="#spende" class="text-emerald-700 hover:underline"
+              >Zurück zum Formular</a
+            >
+          </div>
+        </div>
+      </section>
+      <!-- Kontakt / Über uns Platzhalter -->
+      <section id="kontakt" class="mt-16">
+        <h2 class="text-xl font-semibold mb-3">Kontakt</h2>
+        <p>E-Mail: kontakt@kleiderspende.example • Telefon: 01234 567890</p>
+      </section>
+      <section id="ueber" class="mt-8">
+        <h2 class="text-xl font-semibold mb-3">Über uns</h2>
+        <p>
+          Wir organisieren lokale Kleiderspenden und unterstützen Krisenregionen
+          nach aktuellem Bedarf.
+        </p>
+      </section>
+    </main>
+    <footer class="bg-emerald-700 text-white mt-16">
+      <div
+        class="container mx-auto px-4 py-8 flex flex-col md:flex-row items-center justify-between gap-3"
+      >
+        <p class="text-center">
+          &copy; <span id="year"></span> KleiderSpende e.V.
+        </p>
+        <nav class="flex items-center gap-6">
+          <a href="#" class="hover:underline">Impressum</a>
+          <a href="#" class="hover:underline">Datenschutz</a>
+        </nav>
+      </div>
+    </footer>
+    <script>
+      const VEREIN_NAME = "KleiderSpende e.V.";
+      const VEREIN_ADRESSE = "Herzog-Willhelm-Straße 1, 80331 München";
+      const VEREIN_PLZ = "80331"; // für Abholgebiet: werden ersten zwei Ziffern benötigt
+      const EUROPE_TZ = "Europe/Berlin";
+      const KLEIDUNGSLISTE = [
+        "Jacken",
+        "Hosen (kurz/lang)",
+        "T-Shirts",
+        "Pullover",
+        "Unterwäsche",
+        "Schuhe",
+        "Kinderkleidung",
+        "Bettwäsche",
+        "Winterbekleidung",
+        "Sonstiges",
+      ];
+      const KRISENGEBIETE = [
+        "Ukraine",
+        "Sudan",
+        "Syrien",
+        "Afghanistan",
+        "Jemen",
+        "Haiti",
+      ];
+      //Dom-Refs
+      const menuBtn = document.getElementById("menuBtn");
+      const mobileNav = document.getElementById("mobileNav");
+
+      const modusRadios = Array.from(
+        document.querySelectorAll('input[name="modus"]')
+      );
+      const adresseBox = document.getElementById("adresseBox");
+
+      const selKleidung = document.getElementById("kleidung");
+      const selKrise = document.getElementById("krise");
+
+      const inpStrasse = document.getElementById("strasse");
+      const inpHausnr = document.getElementById("hausnr");
+      const inpPlz = document.getElementById("plz");
+      const inpOrt = document.getElementById("ort");
+
+      const submitBtn = document.getElementById("submitBtn");
+      const resetBtn = document.getElementById("resetBtn");
+
+      const sectionBestaetigung = document.getElementById("bestaetigung");
+      const outKleidung = document.getElementById("out-kleidung");
+      const outKrise = document.getElementById("out-krise");
+      const outDatetime = document.getElementById("out-datetime");
+      const outOrt = document.getElementById("out-ort");
+      const newEntryBtn = document.getElementById("newEntryBtn");
+
+      const err = {
+        kleidung: document.getElementById("err-kleidung"),
+        krise: document.getElementById("err-krise"),
+        strasse: document.getElementById("err-strasse"),
+        hausnr: document.getElementById("err-hausnr"),
+        plz: document.getElementById("err-plz"),
+        plzNaehe: document.getElementById("err-plz-naehe"),
+        ort: document.getElementById("err-ort"),
+      };
+      document.getElementById("year").textContent = new Date().getFullYear();
+      //Mobilies Menü
+      menuBtn.addEventListener("click", () => {
+        mobileNav.classList.toggle("hidden");
+      });
+      //Selects füllen
+      function fillSelect(select, items) {
+        for (const v of items) {
+          const opt = document.createElement("option");
+          opt.value = v;
+          opt.textContent = v;
+          select.appendChild(opt);
+        }
+      }
+      fillSelect(selKleidung, KLEIDUNGSLISTE);
+      fillSelect(selKrise, KRISENGEBIETE);
+      //Modus-Änderung
+      function updateModusUI() {
+        const modus = getModus();
+        if (modus === "abholung") {
+          adresseBox.classList.remove("hidden");
+        } else {
+          adresseBox.classList.add("hidden");
+        }
+        clearErrors();
+      }
+      function getModus() {
+        const checked = modusRadios.find((r) => r.checked);
+        return checked ? checked.value : "uebergabe";
+      }
+      modusRadios.forEach((r) => r.addEventListener("change", updateModusUI));
+      updateModusUI();
+      //Eingabe-Helfer
+      inpPlz.addEventListener("input", () => {
+        // nur Ziffern, max 5
+        inpPlz.value = inpPlz.value.replace(/\D/g, "").slice(0, 5);
+      });
+      //Formular-Validierung
+      function clearErrors() {
+        Object.values(err).forEach((el) => el.classList.add("hidden"));
+      }
+      function show(el) {
+        el.classList.remove("hidden");
+      }
+
+      function validate() {
+        clearErrors();
+        let ok = true;
+
+        if (!selKleidung.value) {
+          show(err.kleidung);
+          ok = false;
+        }
+        if (!selKrise.value) {
+          show(err.krise);
+          ok = false;
+        }
+
+        if (getModus() === "abholung") {
+          if (!inpStrasse.value.trim()) {
+            show(err.strasse);
+            ok = false;
+          }
+          if (!inpHausnr.value.trim()) {
+            show(err.hausnr);
+            ok = false;
+          }
+          if (!/^\d{5}$/.test(inpPlz.value)) {
+            show(err.plz);
+            ok = false;
+          }
+          if (!inpOrt.value.trim()) {
+            show(err.ort);
+            ok = false;
+          }
+
+          // PLZ Nähe prüfen
+          if (/^\d{5}$/.test(inpPlz.value)) {
+            const sameTwo = inpPlz.value.slice(0, 2) === VEREIN_PLZ.slice(0, 2);
+            if (!sameTwo) {
+              show(err.plzNaehe);
+              ok = false;
+            }
+          }
+        }
+
+        return ok;
+      }
+      //Absenden
+      submitBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (!validate()) return;
+
+        const modus = getModus();
+        const kleidung = selKleidung.value;
+        const krise = selKrise.value;
+
+        const now = new Date();
+        const datetimeStr = now.toLocaleString("de-DE", {
+          dateStyle: "long",
+          timeStyle: "short",
+          timeZone: EUROPE_TZ,
+        });
+
+        let ortText = "";
+        if (modus === "uebergabe") {
+          ortText = `Geschäftsstelle (${VEREIN_ADRESSE})`;
+        } else {
+          ortText = `${inpStrasse.value.trim()} ${inpHausnr.value.trim()}, ${inpPlz.value.trim()} ${inpOrt.value.trim()}`;
+        }
+        // Ausgabe befüllen
+        outKleidung.textContent = kleidung;
+        outKrise.textContent = krise;
+        outDatetime.textContent = datetimeStr;
+        outOrt.textContent = ortText;
+        //Formular-Bereich scrollt aus, Besätigung einblenden
+        sectionBestaetigung.classList.remove("hidden");
+        window.location.hash = "#bestaetigung";
+      });
+      //Reset
+      function resetForm() {
+        document.querySelector(
+          'input[name="modus"][value="uebergabe"]'
+        ).checked = true;
+        selKleidung.value = "";
+        selKrise.value = "";
+        inpStrasse.value = "";
+        inpHausnr.value = "";
+        inpPlz.value = "";
+        inpOrt.value = "";
+        clearErrors();
+        updateModusUI();
+        sectionBestaetigung.classList.add("hidden");
+        window.location.hash = "#spende";
+      }
+      resetBtn.addEventListener("click", resetForm);
+      newEntryBtn.addEventListener("click", resetForm);
+
+      // Optional: Modus via Query-Param (für Tablet an Geschäftsstelle)
+      // ?modus=uebergabe | ?modus=abholung
+      const params = new URLSearchParams(window.location.search);
+      const paramModus = params.get("modus");
+      if (paramModus === "abholung" || paramModus === "uebergabe") {
+        document.querySelector(
+          `input[name="modus"][value="${paramModus}"]`
+        ).checked = true;
+        updateModusUI();
+      }
+    </script>
+  </body>
+</html>
