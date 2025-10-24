@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kleiderspenden-Registrierung | KleiderMobil e.V.</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-..."
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
     <meta
       name="description"
       content="Registrieren Sie sich für Kleiderspenden und helfen Sie Bedürftigen. Mit Übergabe an Geschäftsstelle oder Abholung per Sammelfahrzeug.. Einfach, schnell und sicher."
@@ -147,13 +154,40 @@
               <label for="kleidung" class="block text-sm font-medium mb-2"
                 >Art der Kleidung</label
               >
-              <select
-                id="kleidung"
-                required
-                class="w-full rounded-xl border px-3 py-2"
-              >
-                <option value="">Bitte auswählen …</option>
-              </select>
+              <!-- Ausklappbares Mehrfach-Auswahl-Menü -->
+              <div class="relative">
+                <button
+                  id="kleidungToggle"
+                  type="button"
+                  aria-expanded="false"
+                  class="w-full text-left rounded-xl border px-3 py-2 flex items-center justify-between"
+                >
+                  <span id="kleidungSummary">Bitte auswählen …</span>
+                  <svg
+                    class="w-5 h-5 text-gray-600"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+                <div
+                  id="kleidungPanel"
+                  class="mt-2 hidden rounded-xl border bg-white p-3 z-10"
+                >
+                  <div id="kleidungContainer" class="grid sm:grid-cols-2 gap-2">
+                    <!-- Checkbox-Optionen werden per JS eingefügt -->
+                  </div>
+                </div>
+              </div>
+              <p class="mt-2 text-sm text-gray-600">
+                Mehrere Optionen per Klick auswählen.
+              </p>
               <p id="err-kleidung" class="mt-1 text-sm text-red-600 hidden">
                 Bitte Kleidungstyp auswählen.
               </p>
@@ -332,215 +366,11 @@
         </nav>
       </div>
     </footer>
-    <script>
-      const VEREIN_NAME = "KleiderSpende e.V.";
-      const VEREIN_ADRESSE = "Herzog-Willhelm-Straße 1, 80331 München";
-      const VEREIN_PLZ = "80331"; // für Abholgebiet: werden ersten zwei Ziffern benötigt
-      const EUROPE_TZ = "Europe/Berlin";
-      const KLEIDUNGSLISTE = [
-        "Jacken",
-        "Hosen (kurz/lang)",
-        "T-Shirts",
-        "Pullover",
-        "Unterwäsche",
-        "Schuhe",
-        "Kinderkleidung",
-        "Bettwäsche",
-        "Winterbekleidung",
-        "Sonstiges",
-      ];
-      const KRISENGEBIETE = [
-        "Ukraine",
-        "Sudan",
-        "Syrien",
-        "Afghanistan",
-        "Jemen",
-        "Haiti",
-      ];
-      //Dom-Refs
-      const menuBtn = document.getElementById("menuBtn");
-      const mobileNav = document.getElementById("mobileNav");
-
-      const modusRadios = Array.from(
-        document.querySelectorAll('input[name="modus"]')
-      );
-      const adresseBox = document.getElementById("adresseBox");
-
-      const selKleidung = document.getElementById("kleidung");
-      const selKrise = document.getElementById("krise");
-
-      const inpStrasse = document.getElementById("strasse");
-      const inpHausnr = document.getElementById("hausnr");
-      const inpPlz = document.getElementById("plz");
-      const inpOrt = document.getElementById("ort");
-
-      const submitBtn = document.getElementById("submitBtn");
-      const resetBtn = document.getElementById("resetBtn");
-
-      const sectionBestaetigung = document.getElementById("bestaetigung");
-      const outKleidung = document.getElementById("out-kleidung");
-      const outKrise = document.getElementById("out-krise");
-      const outDatetime = document.getElementById("out-datetime");
-      const outOrt = document.getElementById("out-ort");
-      const newEntryBtn = document.getElementById("newEntryBtn");
-
-      const err = {
-        kleidung: document.getElementById("err-kleidung"),
-        krise: document.getElementById("err-krise"),
-        strasse: document.getElementById("err-strasse"),
-        hausnr: document.getElementById("err-hausnr"),
-        plz: document.getElementById("err-plz"),
-        plzNaehe: document.getElementById("err-plz-naehe"),
-        ort: document.getElementById("err-ort"),
-      };
-      document.getElementById("year").textContent = new Date().getFullYear();
-      //Mobilies Menü
-      menuBtn.addEventListener("click", () => {
-        mobileNav.classList.toggle("hidden");
-      });
-      //Selects füllen
-      function fillSelect(select, items) {
-        for (const v of items) {
-          const opt = document.createElement("option");
-          opt.value = v;
-          opt.textContent = v;
-          select.appendChild(opt);
-        }
-      }
-      fillSelect(selKleidung, KLEIDUNGSLISTE);
-      fillSelect(selKrise, KRISENGEBIETE);
-      //Modus-Änderung
-      function updateModusUI() {
-        const modus = getModus();
-        if (modus === "abholung") {
-          adresseBox.classList.remove("hidden");
-        } else {
-          adresseBox.classList.add("hidden");
-        }
-        clearErrors();
-      }
-      function getModus() {
-        const checked = modusRadios.find((r) => r.checked);
-        return checked ? checked.value : "uebergabe";
-      }
-      modusRadios.forEach((r) => r.addEventListener("change", updateModusUI));
-      updateModusUI();
-      //Eingabe-Helfer
-      inpPlz.addEventListener("input", () => {
-        // nur Ziffern, max 5
-        inpPlz.value = inpPlz.value.replace(/\D/g, "").slice(0, 5);
-      });
-      //Formular-Validierung
-      function clearErrors() {
-        Object.values(err).forEach((el) => el.classList.add("hidden"));
-      }
-      function show(el) {
-        el.classList.remove("hidden");
-      }
-
-      function validate() {
-        clearErrors();
-        let ok = true;
-
-        if (!selKleidung.value) {
-          show(err.kleidung);
-          ok = false;
-        }
-        if (!selKrise.value) {
-          show(err.krise);
-          ok = false;
-        }
-
-        if (getModus() === "abholung") {
-          if (!inpStrasse.value.trim()) {
-            show(err.strasse);
-            ok = false;
-          }
-          if (!inpHausnr.value.trim()) {
-            show(err.hausnr);
-            ok = false;
-          }
-          if (!/^\d{5}$/.test(inpPlz.value)) {
-            show(err.plz);
-            ok = false;
-          }
-          if (!inpOrt.value.trim()) {
-            show(err.ort);
-            ok = false;
-          }
-
-          // PLZ Nähe prüfen
-          if (/^\d{5}$/.test(inpPlz.value)) {
-            const sameTwo = inpPlz.value.slice(0, 2) === VEREIN_PLZ.slice(0, 2);
-            if (!sameTwo) {
-              show(err.plzNaehe);
-              ok = false;
-            }
-          }
-        }
-
-        return ok;
-      }
-      //Absenden
-      submitBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        if (!validate()) return;
-
-        const modus = getModus();
-        const kleidung = selKleidung.value;
-        const krise = selKrise.value;
-
-        const now = new Date();
-        const datetimeStr = now.toLocaleString("de-DE", {
-          dateStyle: "long",
-          timeStyle: "short",
-          timeZone: EUROPE_TZ,
-        });
-
-        let ortText = "";
-        if (modus === "uebergabe") {
-          ortText = `Geschäftsstelle (${VEREIN_ADRESSE})`;
-        } else {
-          ortText = `${inpStrasse.value.trim()} ${inpHausnr.value.trim()}, ${inpPlz.value.trim()} ${inpOrt.value.trim()}`;
-        }
-        // Ausgabe befüllen
-        outKleidung.textContent = kleidung;
-        outKrise.textContent = krise;
-        outDatetime.textContent = datetimeStr;
-        outOrt.textContent = ortText;
-        //Formular-Bereich scrollt aus, Besätigung einblenden
-        sectionBestaetigung.classList.remove("hidden");
-        window.location.hash = "#bestaetigung";
-      });
-      //Reset
-      function resetForm() {
-        document.querySelector(
-          'input[name="modus"][value="uebergabe"]'
-        ).checked = true;
-        selKleidung.value = "";
-        selKrise.value = "";
-        inpStrasse.value = "";
-        inpHausnr.value = "";
-        inpPlz.value = "";
-        inpOrt.value = "";
-        clearErrors();
-        updateModusUI();
-        sectionBestaetigung.classList.add("hidden");
-        window.location.hash = "#spende";
-      }
-      resetBtn.addEventListener("click", resetForm);
-      newEntryBtn.addEventListener("click", resetForm);
-
-      // Optional: Modus via Query-Param (für Tablet an Geschäftsstelle)
-      // ?modus=uebergabe | ?modus=abholung
-      const params = new URLSearchParams(window.location.search);
-      const paramModus = params.get("modus");
-      if (paramModus === "abholung" || paramModus === "uebergabe") {
-        document.querySelector(
-          `input[name="modus"][value="${paramModus}"]`
-        ).checked = true;
-        updateModusUI();
-      }
-    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-..."
+      crossorigin="anonymous"
+    ></script>
+    <script src="script.js"></script>
   </body>
 </html>
