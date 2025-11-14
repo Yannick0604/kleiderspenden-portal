@@ -157,8 +157,8 @@ modusRadios.forEach((r) => r.addEventListener("change", updateModusUI));
 updateModusUI();
 //Eingabe-Helfer
 inpPlz.addEventListener("input", () => {
-  // nur Ziffern, max 5
   inpPlz.value = inpPlz.value.replace(/\D/g, "").slice(0, 5);
+  if (!/^\d{5}$/.test(inpPlz.value)) show(err.plz);
 });
 //Formular-Validierung
 function clearErrors() {
@@ -242,6 +242,7 @@ submitBtn.addEventListener("click", (e) => {
   outKleidung.textContent = kleidung;
   outKrise.textContent = krise;
   outDatetime.textContent = datetimeStr;
+  // sichere Anzeige
   outOrt.textContent = ortText;
   //Formular-Bereich scrollt aus, Besätigung einblenden
   sectionBestaetigung.classList.remove("hidden");
@@ -271,6 +272,8 @@ newEntryBtn.addEventListener("click", resetForm);
 const params = new URLSearchParams(window.location.search);
 const paramModus = params.get("modus");
 if (paramModus === "abholung" || paramModus === "uebergabe") {
-  document.querySelector(`input[name="modus"][value="${paramModus}"]`).checked = true;
+  const radios = Array.from(document.querySelectorAll('input[name="modus"]'));
+  const match = radios.find(r => r.value === paramModus);
+  if (match) match.checked = true;
   updateModusUI();
 }
