@@ -61,9 +61,30 @@ const err = {
 };
 document.getElementById("year").textContent = new Date().getFullYear();
 //Mobilies Menü
-menuBtn.addEventListener("click", () => {
-  mobileNav.classList.toggle("hidden");
-});
+if (menuBtn && mobileNav) {
+  menuBtn.addEventListener("click", () => {
+    const opened = mobileNav.classList.toggle("hidden") === false;
+    menuBtn.setAttribute("aria-expanded", String(opened));
+  });
+
+  // Schließe Menü bei Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !mobileNav.classList.contains("hidden")) {
+      mobileNav.classList.add("hidden");
+      menuBtn.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  // Schließe Menü, wenn ein Link im Mobile-Nav geklickt wird
+  mobileNav.addEventListener("click", (e) => {
+    const a = e.target.closest("a");
+    if (a) {
+      mobileNav.classList.add("hidden");
+      menuBtn.setAttribute("aria-expanded", "false");
+    }
+  });
+}
+
 //Selects füllen
 function fillSelect(select, items) {
   for (const v of items) {
@@ -246,7 +267,7 @@ resetBtn.addEventListener("click", resetForm);
 newEntryBtn.addEventListener("click", resetForm);
 
 // Optional: Modus via Query-Param (für Tablet an Geschäftsstelle)
-// ?modus=uebergabe | ?modus=abholung
+// modus=uebergabe | modus=abholung
 const params = new URLSearchParams(window.location.search);
 const paramModus = params.get("modus");
 if (paramModus === "abholung" || paramModus === "uebergabe") {
